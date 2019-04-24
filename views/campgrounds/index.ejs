@@ -1,0 +1,39 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <header class="jumbotron">    
+            <div class="container">
+            <% if(currentUser) { %>
+                <h1>Hola <%= currentUser.username %></h1>
+            
+            <% } %>
+            <h1>The Yelpcamp will tell you where you should be by now</h1>
+            <p>What are you waiting four dude?</p>
+            <p>
+                <a class="btn btn-lg btn-success" href="/campgrounds/new">Add new Campground</a>
+            </p>
+        </div>
+    </header>
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <h2>The Most of the Most</h2>
+        </div>
+    </div>
+
+    <div class="row text-center justify-content-center">
+            <% campgrounds.forEach(function(camp){ %>
+                <div class="col-12 col-md-6 col-lg-3 mb-3">
+                    <div class="card">
+                        <img class="card-img-top" src= "<%= camp.image %>" alt="">
+                        <div class="card-body">
+                           <h5 class="card-title"><%= camp.name %></h5>
+                                <a href="/campgrounds/<%=camp._id%>" class="btn btn-primary">More info</a>
+                            </div>
+                        </div>
+                    </div>
+            <% }); %> 
+    </div>
+</div>
+
+<% include ../partials/footer %>
+

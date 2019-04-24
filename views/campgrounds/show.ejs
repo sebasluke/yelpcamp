@@ -1,0 +1,62 @@
+<% include ../partials/header %>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Yelpcamp</p>
+            <div class="list-group">
+                <li class="list-group-item active">Info 1</li>
+                <li class="list-group-item">Info 2</li>
+                <li class="list-group-item">Info 3</li>
+            </div>
+        </div>
+    
+        <div class="col-md-9">
+            <div class="card">
+                <img class="card-img-top" src=<%= image %> alt="">
+                <div class="card-body">
+                    
+                    <div class="caption-full">
+                        <h4 class="float-right">$9.00/night</h4>
+                        
+                        <h4 class="card-title"><a href="#"><%= name%></a></h4>
+                        <h5><em>By <%= author.username %></em></h5>
+                        <p class="card-text"><%= description%></p>
+
+                        <% if (currentUser && author.id.equals(currentUser._id)) { %>
+                            <a href="/campgrounds/<%= id %>/edit" class="btn btn-warning">Edit</a>
+                            <form class="delForm" method="POST" action="/campgrounds/<%= id %>?_method=DELETE">
+                            <button class="btn btn-danger">Delete</button>
+                            </form>
+                        <% } %>
+
+                    </div>
+                </div>
+            </div>
+                
+                
+            <div class="card card-body bg-light mt-3">
+                <div class="text-right">
+                    <p>
+                        <a href="/campgrounds/<%=id%>/comments/new" class="btn btn-info btn-lg">Add new comment</a>
+                    </p>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <% comments.forEach(function(comment) {%>   
+                        <p><strong> <%= comment.author.username %></strong>
+                        <span class="float-right">10 days ago</span>
+                         <p><%= comment.text %></p>
+                       <% }) %>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
+
