@@ -34,9 +34,11 @@ router.get("/login", function(req, res){
 })
 
 router.post("/login", passport.authenticate("local", 
-    {
+        {
         successRedirect: "/campgrounds",
-        failureRedirect: "/login"
+        failureRedirect: "/login",
+        failureFlash: req.flash("error", "Check your data dude!"),
+        successFlash: req.flash("success", "OH MAMA!!! ")
 }) , function(req, res){
         const user = req.body.username
         if (err) console.log(`Fuck ${user}!! I couldn't log them in!!!`)
@@ -45,6 +47,7 @@ router.post("/login", passport.authenticate("local",
 
 router.get("/logout", function(req, res){
     req.logOut();
+    req.flash("success", "As Dame said: Bye, bye you Motherf%&##!")
     res.redirect("/campgrounds");
 })
 
