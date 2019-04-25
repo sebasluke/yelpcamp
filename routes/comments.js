@@ -38,6 +38,35 @@ router.post("/", isLoggedIn, function(req, res){
     res.redirect(`/campgrounds/${id}`);
 }); 
 
+router.get("/:comment_id/edit", function(req, res){
+    
+    Comment.findById(req.params.comment_id, function(err, comment){
+        
+        if (err) return res.send("Fuck me!!!")
+        res.render("comments/edit.ejs", {
+            comment: comment,
+            campId: req.params.id
+        });
+    })  
+})
+
+router.put("/:comment_id/edit", function(req, res){
+
+    Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, comment){
+        if (err) return res.send("Fuck, we blew it")
+        res.redirect(`/campgrounds/${req.params.id}`)
+    })
+})
+
+router.delete("/:comment_id/", function(req, res){
+    Comment.findByIdAndDelete(req.params.comment_id, function(err, comment){
+        if (err) return res.send("fuck!!!")
+        res.redirect(`/campgrounds/${req.params.id}`)
+    })
+    
+})
+
+
 module.exports = router;
 
 // === MIDDLEWARE
@@ -45,3 +74,4 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()) return next();
     res.redirect("/login")
 }
+
