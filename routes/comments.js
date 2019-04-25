@@ -38,7 +38,7 @@ router.post("/", isLoggedIn, function(req, res){
     res.redirect(`/campgrounds/${id}`);
 }); 
 
-router.get("/:comment_id/edit", function(req, res){
+router.get("/:comment_id/edit", isOwner, function(req, res){
     
     Comment.findById(req.params.comment_id, function(err, comment){
         
@@ -50,7 +50,7 @@ router.get("/:comment_id/edit", function(req, res){
     })  
 })
 
-router.put("/:comment_id/edit", function(req, res){
+router.put("/:comment_id/edit", isOwner, function(req, res){
 
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, comment){
         if (err) return res.send("Fuck, we blew it")
@@ -58,7 +58,7 @@ router.put("/:comment_id/edit", function(req, res){
     })
 })
 
-router.delete("/:comment_id/", function(req, res){
+router.delete("/:comment_id/", isOwner, function(req, res){
     Comment.findByIdAndDelete(req.params.comment_id, function(err, comment){
         if (err) return res.send("fuck!!!")
         res.redirect(`/campgrounds/${req.params.id}`)
@@ -75,3 +75,12 @@ function isLoggedIn(req, res, next){
     res.redirect("/login")
 }
 
+function isOwner(req, res, next){
+    isLoggedIn(req, res, function(){
+        Comment.findById(req.params.comment_id, function(err, comment) {
+            if (err) return res.redirect("back")
+            if (comment.author.id.equals(req.user._id)) return next()
+            res.redirect("back");
+        })
+    })
+}

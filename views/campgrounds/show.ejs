@@ -50,10 +50,15 @@
                         <p><strong> <%= comment.author.username %></strong> </p>
                         <span class="float-right">10 days ago</span>
                          <p><%= comment.text %></p>
-                         <a href="/campgrounds/<%= id %>/comments/<%= comment.id %>/edit" class="btn btn-warning">Edit</a>
-                         <form class="delForm" method="POST" action="/campgrounds/<%= id %>/comments/<%= comment.id %>?_method=DELETE">
-                            <button class="btn btn-danger">Delete</button>
-                        </form>
+
+                         <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+
+                            <a href="/campgrounds/<%= id %>/comments/<%= comment.id %>/edit" class="btn btn-warning">Edit</a>
+                            <form class="delForm" method="POST" action="/campgrounds/<%= id %>/comments/<%= comment.id %>?_method=DELETE">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        <% } %>
+                        
                        <% }) %>
                     </div>
                 </div> 
