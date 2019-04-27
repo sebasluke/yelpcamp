@@ -65,14 +65,16 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     };
     Campground.create(newCampground, function(err, campground){
         if(err){
-            console.log(err)
-        } else {
-            console.log("New campground dude!")
-            console.log(campground)
+            req.flash("error", "fuck me we blew it!! Try again please!")
+            return res.redirect("back")
         }
+        console.log("New campground dude!")
+        req.flash("success", `Nice dude!!! ${campground.name} was created. Who rules? YOU RULE!!`)
+         res.redirect(`/campgrounds/${campground._id}`)
+        
     }
     )
-    res.redirect("/")
+    
 });
 
 router.get("/:id/edit", middleware.checkCampgroundOwnership, function (req, res) { 
@@ -86,7 +88,10 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, function (req, res)
 ,           updatedCampground = req.body.campground 
     
     Campground.findByIdAndUpdate(id, updatedCampground, (err, updatedCampground) => {
-        if (err) return res.render(`/${id}`)
+        if (err) {
+            req.flash("error", err.message)
+            return res.render(`/${id}`)}
+        req.flash("success", "Good job, it's edited")
         res.redirect(`/campgrounds/${id}`)
     })
  })
