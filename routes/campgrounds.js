@@ -98,12 +98,7 @@ router.get("/:id/edit", checkCampgroundOwnership, function (req, res) {
      
  })
 
-
-
-
-
 module.exports = router;
-
 
 // === MIDDLEWARE
 function isLoggedIn(req, res, next){

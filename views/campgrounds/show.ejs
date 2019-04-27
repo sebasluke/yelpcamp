@@ -1,7 +1,5 @@
 <% include ../partials/header %>
 
-
-
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -35,21 +33,32 @@
                     </div>
                 </div>
             </div>
-                
-                
+
             <div class="card card-body bg-light mt-3">
                 <div class="text-right">
                     <p>
-                        <a href="/campgrounds/<%=id%>/comments/new" class="btn btn-info btn-lg">Add new comment</a>
+                        <a href="/campgrounds/<%= id %>/comments/new" class="btn btn-info btn-lg">Add new comment</a>
                     </p>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-md-12">
                         <% comments.forEach(function(comment) {%>   
-                        <p><strong> <%= comment.author.username %></strong>
+                        <p><strong> <%= comment.author.username %></strong> </p>
                         <span class="float-right">10 days ago</span>
                          <p><%= comment.text %></p>
+
+                         <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                            <a 
+                                href="/campgrounds/<%= id %>/comments/<%= comment.id %>/edit" 
+                                class="btn btn-xs btn-warning">Edit
+                            </a>
+                            <form class="delForm" method="POST" 
+                                action="/campgrounds/<%= id %>/comments/<%= comment.id %>?_method=DELETE">
+                                <button class="btn btn-xs btn-danger">Delete</button>
+                            </form>
+                        <% } %>
+                        
                        <% }) %>
                     </div>
                 </div> 
