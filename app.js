@@ -62,10 +62,10 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use(indexRoutes);
 
-
+var port = process.env.PORT || 8080;
 
 // ==== Listen
-app.listen(3000, "0.0.0.0", function(){
+app.listen(port, function(){
     console.log("Server's up dude!!")
 }) 
 
