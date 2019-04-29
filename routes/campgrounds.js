@@ -31,18 +31,9 @@ router.get("/:id", function(req, res){
     const id = req.params.id;
     Campground.findById(id).populate("comments").exec(function(err, campground){
         if (err) return console.log(err)
-        const   name = campground.name,
-                image = campground.image,
-                description = campground.description,
-                comments = campground.comments,
-                author = campground.author
+        
         res.render("../views/campgrounds/show", {
-            name: name,
-            image: image, 
-            description: description,
-            comments: comments,
-            id: id,
-            author: author
+            campground: campground
         });
     }
 )
