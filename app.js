@@ -5,6 +5,8 @@ var express         = require("express")
 ,    Campground      = require("./models/campground")
 ,    Comment         = require("./models/comments")
 ,    seedDB          = require("./seeds")
+,    session         = require("express-session")
+,    mongoStore      = require("connect-mongo")(session)
 ,    flash           = require("connect-flash")
 ,    passport        = require("passport")
 ,    User            = require("./models/user")
@@ -37,10 +39,11 @@ app.use(methodOverride("_method"));
 app.use(flash());
 
 // PASSPORT CONFIG
-app.use(require("express-session")({
+app.use(session({
     secret: "Ringo is the coolest one",
     resave: false, 
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new mongoStore(options)
 }));
 app.use(passport.initialize());
 app.use(passport.session());
