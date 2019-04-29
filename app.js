@@ -17,7 +17,7 @@ const
 ,   indexRoutes         = require("./routes/index");
 
 
-mongoose.connect("mongodb+srv://sebasluke:<password>@cluster0-piooz.mongodb.net/test?retryWrites=true", {useNewUrlParser: true});
+mongoose.connect("mongodb+srv://sebasluke:DearLady@cluster0-piooz.mongodb.net/test?retryWrites=true", {useNewUrlParser: true});
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, 'connection error:'));
 db.once('open', function(){
