@@ -17,7 +17,7 @@ const
 ,   indexRoutes         = require("./routes/index");
 
 
-mongoose.connect("mongodb://localhost/yelp_camp", {useNewUrlParser: true});
+mongoose.connect("mongodb+srv://sebasluke:<password>@cluster0-piooz.mongodb.net/test?retryWrites=true", {useNewUrlParser: true});
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, 'connection error:'));
 db.once('open', function(){
@@ -26,6 +26,8 @@ db.once('open', function(){
 
 // ===TESTING DATA
 // seedDB();
+
+
 
 var app = express();
 app.use(bodyParser.urlencoded({extended:true}));
