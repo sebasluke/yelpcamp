@@ -43,7 +43,7 @@ app.use(session({
     secret: "Ringo is the coolest one",
     resave: false, 
     saveUninitialized: false,
-    store: new mongoStore(options)
+    store: new mongoStore({mongooseConnection: mongoose.connection})
 }));
 app.use(passport.initialize());
 app.use(passport.session());
