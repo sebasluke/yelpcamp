@@ -63,8 +63,7 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use(indexRoutes);
 
-// var port = process.env.PORT || 8080;
-var port = "0.0.0.0"
+var port = process.env.PORT || 8080;
 
 
 
